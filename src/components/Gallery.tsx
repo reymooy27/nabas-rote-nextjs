@@ -14,14 +14,12 @@ interface GalleryProps {
 
 export default function Gallery({ images }: GalleryProps) {
   return (
-    <section id="gallery" className="py-25 max-md:py-16">
+    <section id="gallery" className="py-25 bg-cream max-md:py-16">
       <div className="max-w-[1200px] mx-auto px-6">
-        <p className="text-[0.85rem] font-semibold text-gold uppercase tracking-[2px] mb-2 text-center">
-          Galeri
-        </p>
+        <p className="eyebrow text-gold mb-2 text-center">Galeri</p>
         <h2
-          className="font-[Playfair_Display] text-spice-dark mb-12 text-center"
-          style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", lineHeight: 1.25 }}
+          className="font-[Playfair_Display] text-spice-deep font-bold mb-12 text-center"
+          style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", lineHeight: 1.2 }}
         >
           Suasana & Hidangan
         </h2>
@@ -32,7 +30,7 @@ export default function Gallery({ images }: GalleryProps) {
             <AnimateOnScroll
               key={img.id}
               delay={(i % 3) * 0.1}
-              className={`rounded-xl overflow-hidden cursor-pointer ${
+              className={`rounded-xl overflow-hidden cursor-pointer ring-1 ring-gold/15 ${
                 img.isTall ? "row-span-2 max-[560px]:row-span-1" : ""
               } ${img.isWide ? "col-span-2 max-md:col-span-1" : ""}`}
             >

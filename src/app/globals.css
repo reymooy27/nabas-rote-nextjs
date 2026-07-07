@@ -3,11 +3,16 @@
 @theme inline {
   --color-spice: #b44527;
   --color-spice-dark: #8c3520;
+  --color-spice-deep: #6e1f12;
   --color-spice-light: #d4654a;
   --color-gold: #d4a24e;
   --color-gold-light: #e3b96e;
   --color-gold-dark: #b88a3a;
   --color-cream: #fdf8f0;
+  --color-cream-deep: #f5ede0;
+
+  --font-script: "Great Vibes", cursive;
+  --font-serif: "Playfair Display", serif;
 }
 
 html {
@@ -17,9 +22,26 @@ html {
 body {
   font-family: 'DM Sans', sans-serif;
   color: #1f2937;
-  background: #ffffff;
+  background: var(--color-cream);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Editorial display helpers (HANBUT style) */
+.font-serif {
+  font-family: var(--font-serif);
+}
+.font-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+}
+
+/* Wide-tracking eyebrow label */
+.eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
 }
 
 /* Scroll animations */

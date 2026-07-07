@@ -60,7 +60,7 @@ export default function Navbar({ restaurantName, waNumber }: NavbarProps) {
     <nav
       className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${
         scrolled
-          ? "bg-white/97 backdrop-blur-xl py-3 shadow-sm"
+          ? "bg-cream/97 backdrop-blur-xl py-3 shadow-sm"
           : "py-5"
       }`}
     >
