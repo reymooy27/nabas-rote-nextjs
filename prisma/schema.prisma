@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Restaurant {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  tagline     String?
+  description String?  @db.Text
+  address     String?
+  phone       String?
+  waNumber    String   @map("wa_number")
+  mapsUrl     String?  @map("maps_url")
+  rating      Float    @default(0)
+  reviewCount Int      @default(0) @map("review_count")
+  heroImage   String?  @map("hero_image")
+  logoUrl     String?  @map("logo_url")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz()
+
+  menuItems    MenuItem[]
+  features     Feature[]
+  galleryImages GalleryImage[]
+  reviews      Review[]
+  siteSettings SiteSetting[]
+
+  @@map("restaurants")
+}
+
+model MenuItem {
+  id           String  @id @default(cuid())
+  restaurantId String  @map("restaurant_id")
+  name         String
+  description  String? @db.Text
+  price        Decimal @db.Decimal(10, 2)
+  imageUrl     String? @map("image_url")
+  badge        String?
+  sortOrder    Int     @default(0) @map("sort_order")
+  isActive     Boolean @default(true) @map("is_active")
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@index([restaurantId, sortOrder])
+  @@map("menu_items")
+}
+
+model Feature {
+  id           String @id @default(cuid())
+  restaurantId String @map("restaurant_id")
+  title        String
+  description  String?
+  iconSvg      String @map("icon_svg") @db.Text
+  sortOrder    Int    @default(0) @map("sort_order")
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@index([restaurantId, sortOrder])
+  @@map("features")
+}
+
+model GalleryImage {
+  id           String  @id @default(cuid())
+  restaurantId String  @map("restaurant_id")
+  imageUrl     String  @map("image_url")
+  altText      String? @map("alt_text")
+  sortOrder    Int     @default(0) @map("sort_order")
+  isTall       Boolean @default(false) @map("is_tall")
+  isWide       Boolean @default(false) @map("is_wide")
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@index([restaurantId, sortOrder])
+  @@map("gallery_images")
+}
+
+model Review {
+  id              String @id @default(cuid())
+  restaurantId    String @map("restaurant_id")
+  authorName      String @map("author_name")
+  authorInitials  String @map("author_initials")
+  authorLocation  String? @map("author_location")
+  rating          Int
+  text            String @db.Text
+  sortOrder       Int    @default(0) @map("sort_order")
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@index([restaurantId, sortOrder])
+  @@map("reviews")
+}
+
+model SiteSetting {
+  id           String @id @default(cuid())
+  restaurantId String @map("restaurant_id")
+  key          String
+  value        String @db.Text
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@unique([restaurantId, key])
+  @@map("site_settings")
+}
